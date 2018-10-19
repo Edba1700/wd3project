@@ -1,0 +1,43 @@
+$mobile: false;
+
+@import "_sizenmargins";
+@import "_colors";
+@import "_fonts";
+
+//Sätt argumentet som true för stora skärmar och false för små
+@mixin menufloat($dofloat){
+    #mainheader{
+        li{
+            list-style: none;
+            @if $dofloat == true{
+                float:left;
+            }
+            @else{
+                float:none;
+            }
+        }
+    }
+}
+@include menufloat(true);
+
+body{
+    background-image: url("../bilder/bg.png");
+    background-repeat: repeat;
+}
+.content{
+    border-style:solid;
+    border-width:2px;
+}
+
+
+footer{
+    @extend #envelop;
+}
+
+@media only screen and (max-width : 500px){
+    $mobile: true;
+    @import "_sizenmargins";
+    @import "_colors";
+    @import "_fonts";
+    @include menufloat(false);
+}

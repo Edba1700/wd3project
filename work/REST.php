@@ -9,7 +9,7 @@
 //
 // Database name: ebaer_se_dt173g, Username:ebaer_se_dt173g , Password: fcCtA_fx/`6#'VZ6, Table: Lorem_Ipsum 
 // ------------------------------------------------------------------------------------
-// | ID (int, AI, PRIMARY KEY) | liname (varchar(50, unique)) | text (text) |
+// | ID (int, AI, PRIMARY KEY) | liname (varchar(50, unique)) | litext (text) |
 // ------------------------------------------------------------------------------------
 
 //
@@ -18,7 +18,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 $request = explode('/', trim($_SERVER['PATH_INFO'],'/'));
 $input = json_decode(file_get_contents('php://input'),true);
 
-if($request[0] != "lorem_ipsum"){ 
+if($request[0] != "Lorem_Ipsum"){ 
 	http_response_code(404);
 	exit();
 }
@@ -34,7 +34,7 @@ $db_connected = mysqli_select_db($conn, "ebaer_se_dt173g"); // Work with the dat
 // HTTP method implementations of GET, POST, PUT and DELETE
 switch ($method){
 	case "GET":
-		$sql = "SELECT ID, liname, litext, FROM Lorem_Ipsum";
+		$sql = "SELECT ID, liname, litext FROM Lorem_Ipsum";
 		if(isset($request[1])) $sql = $sql . " WHERE ID = " . $request[1] . ";";
 		break;
 	case "PUT":

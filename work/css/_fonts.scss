@@ -1,0 +1,31 @@
+//Serif font
+@mixin fontserif{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+//Sans-serif font
+@mixin fontsans{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+p{
+    @include fontserif();
+    @if mobile == true{
+        font-size: 130%;
+    }
+}
+
+#mainheader{
+    li{
+        @include fontsans;
+        font-size:150%;
+    }
+}
+
+h1,h2,h3,h4,h5,h6{
+    @include fontsans;
+}
+
+h1{
+    font-size: 32px;
+}

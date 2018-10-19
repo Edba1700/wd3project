@@ -1,0 +1,51 @@
+*{
+    margin: 0px;
+    padding:0px;
+}
+h1{
+    margin-left:20px;
+}
+
+#mainheader{
+    margin-bottom: 50px;
+    margin-left: 20px;
+    @if $mobile == false{
+        li{
+            margin-right:30px;
+        }
+    }
+}
+#envelop{
+    margin: auto;
+    padding: 5px;
+    @if $mobile == true{
+        width: 100%;
+    }
+    @else{
+        width: 965px;
+    }
+}
+
+.content{
+    width: 95%;
+    margin-bottom: 15px;
+    margin-left:20px;
+    padding: 2px;
+}
+
+#logo{
+    @if $mobile == true{
+        width:30%;
+    }    
+    @else{
+        width: 15%;
+    }
+    height: auto;
+    clear: both;
+    margin-bottom: 10px;
+}
+
+#logoimg{
+    width: 100%;
+    height: auto;
+}
