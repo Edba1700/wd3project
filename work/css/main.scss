@@ -20,9 +20,8 @@ $mobile: false;
 }
 @include menufloat(true);
 
-body{
-    background-image: url("../bilder/bg.png");
-    background-repeat: repeat;
+#hoverlist{
+    display: none;
 }
 .content{
     border-style:solid;
@@ -40,4 +39,16 @@ footer{
     @import "_colors";
     @import "_fonts";
     @include menufloat(false);
+
+    #hoverlist{
+        display: inline;
+    }
+
+    #lilist{
+        display: none;
+    }
+
+    #hoverlist:hover #lilist{
+        display: inline;
+    }
 }
