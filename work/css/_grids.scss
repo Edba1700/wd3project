@@ -1,0 +1,65 @@
+//Sätt argumentet som false för stora skärmar och true för små
+@mixin gridset($inmobile){	
+	@if $inmobile == false{	
+		#envelop{
+			display: grid;
+			grid-template-columns: 20% 1fr;
+			grid-template-rows: auto auto auto;
+			grid-template-areas: 
+			"arheader arheader "
+			"arlist litext"
+			"arfooter arfooter";
+			grid-gap: 10px;
+		}
+	}
+	@else if $inmobile == true{
+		#envelop{
+			display: grid;
+			grid-template-columns:1fr;
+			grid-template-rows: auto auto auto auto;
+			grid-template-areas: 
+			"arheader"
+			"arlist"
+			"litext"
+			"arfooter";
+			grid-gap: 10px;
+		}
+	}
+}
+
+#envelophandle{
+	display: grid;
+	grid-template-columns:1fr;
+	grid-template-rows: auto auto auto auto;
+	grid-template-areas: 
+	"arheader"
+	"arlist"
+	"form"
+	"arfooter";
+	grid-gap: 10px;
+
+}
+
+header{
+	grid-area: arheader;
+}
+
+footer{
+	grid-area: arfooter;
+}
+
+#litext{
+	grid-area: litext;
+}
+
+#list, #handlelist{
+	grid-area: arlist;
+}
+
+#dform{
+	grid-area: form;
+}
+
+*{
+	align-self: start;
+}

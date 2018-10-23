@@ -15,6 +15,14 @@ p{
     }
 }
 
+#loremtext{
+    @include fontserif();
+    @if mobile == true{
+        font-size: 130%;
+    }
+    white-space: pre-wrap;
+}
+
 #mainheader{
     li{
         @include fontsans;

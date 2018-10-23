@@ -4,7 +4,7 @@ var URL = "http://ebaer.se/wd3/projekt/REST.php/Lorem_Ipsum"
 //Elements
 var handlelistEl = document.getElementById("handlelist");//Div for list of available Lorem Ipsum
 var dformEl = document.getElementById("dform");//Div for the form.
-var newloremEl = document.getElementById("newlorem");//submit button for a new lorem
+//var newloremEl = document.getElementById("newlorem");//submit button for a new lorem
 var warningEl = document.getElementById("warning");//Warning text
 
 //XMLHttp requests
@@ -25,7 +25,7 @@ LoremInfo.send();
 //Makes list of Lorem Ipsum
 function IpsumList(lorem){
     for (var i = 0; i < lorem.length; i++) {
-        handlelistEl.innerHTML += "<p class='hli'>"+lorem[i].liname+"</p><a class='ahli'onclick ='changeLorem("+lorem[i].ID+","+lorem[i].liname+","+lorem[i].litext+")>  Ändra</a><a class='ahli' onclick = 'deleteLorem("+lorem[i].ID+")'>  Ta bort</a><br/>";
+        handlelistEl.innerHTML += "<div class='dli'><p class='hli'>"+lorem[i].liname+"</p><a class='ahli'onclick ='changeLorem(\""+lorem[i].ID+"\",\""+lorem[i].liname+"\",\""+lorem[i].litext+"\")'>  Ändra</a><a class='ahli' onclick = 'deleteIpsum(\""+lorem[i].ID+"\")'>  Ta bort</a><br/></div>";
     }
 }
 
@@ -33,11 +33,14 @@ function IpsumList(lorem){
 function newIpsum(){
     var liname = document.getElementById("liname").value;
     var litext = document.getElementById("litext").value;
-    if( !(liid != '' && liname != '' && litext != '') ){ 
+    if( !(liname != '' && litext != '') ){ 
         location.reload();
     }
-
-    var json = {"ID":liid, "liname":liname, "litext":litext};
+    //Removelinebreaks
+    while(litext.indexOf('\n')>-1){
+        litext=litext.replace('\n','*n');
+    }
+    var json = {"liname":liname, "litext":litext};
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("POST", URL, true);
     xmlhttp.setRequestHeader('Content-Type', 'application/json');
@@ -47,11 +50,19 @@ function newIpsum(){
             location.reload();
     }
 }
-
+//Function for resturing linebreaks
+function breakrestore(unbroken){
+    var breakee = unbroken;
+    while(breakee.indexOf('*n')>-1){
+        breakee = breakee.replace('*n','\n');
+    }
+    return breakee;
+}
 //Function for making changes to a Lorem Ipsum
 function changeLorem(liid, liname,litext){
-    dformEl.innerHTML = '<form action="#" id="newtext"><input type="text" name="liname" id="liname" value = "'+liname+'"><br/><br/><textarea name="litext" id="litext" value="'+litext+'" cols="30" rows="10"></textarea><br/><input type="hidden" name="liid" id="liid" value="'+liid+'"><input type="submit" value="submit" id="submitbutton"></form>'
-    window.submitEl = document.getElementById("submitbutton");
+    var LoremIpsum = breakrestore(litext);
+    dformEl.innerHTML = '<form action="#" method="#" id="newtext"><input type="text" name="liname" id="liname" value = "'+liname+'"><br/><br/><textarea name="litext" id="litext" cols="30" rows="10">'+LoremIpsum+'</textarea><br/><input type="hidden" name="liid" id="liid" value="'+liid+'"><input type="button" value="submit" id="submitbutton"></form>'
+    document.getElementById("submitbutton").addEventListener("click",changeIpsumcheck);
 }
 
 
@@ -86,9 +97,7 @@ function deleteIpsum(id){
         location.reload();
     }
 }
-//submit listeners
-onclick.newloremEl = newIpsumcheck;
-onclick.submitEl = changeIpsumcheck;
+
 
 //functions to ensure non-empty input fields
 function valuecheck(){
@@ -119,4 +128,7 @@ function changeIpsumcheck(){
         warningEl.innerHTML = "Fälten får EJ vara tomma!";
     }
 }
+//submit listeners
+document.getElementById("newlorem").addEventListener("click",newIpsumcheck);
+
 

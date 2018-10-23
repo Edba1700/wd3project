@@ -3,6 +3,7 @@ $mobile: false;
 @import "_sizenmargins";
 @import "_colors";
 @import "_fonts";
+@import "_grids";
 
 //Sätt argumentet som true för stora skärmar och false för små
 @mixin menufloat($dofloat){
@@ -19,18 +20,17 @@ $mobile: false;
     }
 }
 @include menufloat(true);
+@include gridset(false);
 
-#hoverlist{
+//Gömmer knappen som används, på små skärmar, för att ta fram listan
+#displaylist{
     display: none;
-}
-.content{
-    border-style:solid;
-    border-width:2px;
 }
 
 
 footer{
-    @extend #envelop;
+    //@extend #envelop;
+    width: 100%;
 }
 
 @media only screen and (max-width : 500px){
@@ -39,16 +39,14 @@ footer{
     @import "_colors";
     @import "_fonts";
     @include menufloat(false);
+    @include gridset(true)
 
-    #hoverlist{
+    #displaylist{
         display: inline;
     }
 
+    //Gömmer listan över Lorem Ipsum så det inte tar så stor plats i mobilen
     #lilist{
         display: none;
-    }
-
-    #hoverlist:hover #lilist{
-        display: inline;
     }
 }

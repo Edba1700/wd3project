@@ -45,7 +45,7 @@ gulp.task("moveclassphp",function(){
 gulp.task("mnmjs", function(){
     gulp.src("work/js/*.js")
         .pipe(concat("main.min.js"))
-        .pipe(minimize())
+        //.pipe(minimize())
         .pipe(gulp.dest("fin/js"))
         return console.log("Merged, minimized and moved js!");
 });

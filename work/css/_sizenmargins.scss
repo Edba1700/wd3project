@@ -6,6 +6,10 @@ h1{
     margin-left:20px;
 }
 
+footer{
+    text-align: center;
+}
+
 #mainheader{
     margin-bottom: 50px;
     margin-left: 20px;
@@ -15,7 +19,7 @@ h1{
         }
     }
 }
-#envelop{
+.envelop{
     margin: auto;
     padding: 5px;
     @if $mobile == true{
@@ -33,12 +37,16 @@ h1{
     padding: 2px;
 }
 
+.dli{//Lista i handle.html
+    margin-bottom: 10px;
+}
+
 #logo{
     @if $mobile == true{
-        width:30%;
+        width:100%;
     }    
     @else{
-        width: 15%;
+        width: 30%;
     }
     height: auto;
     clear: both;
@@ -48,4 +56,13 @@ h1{
 #logoimg{
     width: 100%;
     height: auto;
+}
+
+#displaylist{//Denna div ignorerar CSS av okänd anledning
+    width: 50px;
+    margin-left:20px;
+}
+#listimg{
+    width:50px; 
+    height:auto;
 }

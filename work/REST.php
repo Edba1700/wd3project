@@ -9,7 +9,7 @@
 //
 // Database name: ebaer_se_dt173g, Username:ebaer_se_dt173g , Password: fcCtA_fx/`6#'VZ6, Table: Lorem_Ipsum 
 // ------------------------------------------------------------------------------------
-// | ID (int, AI, PRIMARY KEY) | liname (varchar(50, unique)) | litext (text) |
+// | ID (int, AI, PRIMARY KEY) | liname (varchar(50, unique)) | litext (long text) |
 // ------------------------------------------------------------------------------------
 
 //
@@ -17,6 +17,7 @@
 $method = $_SERVER['REQUEST_METHOD'];
 $request = explode('/', trim($_SERVER['PATH_INFO'],'/'));
 $input = json_decode(file_get_contents('php://input'),true);
+
 
 if($request[0] != "Lorem_Ipsum"){ 
 	http_response_code(404);

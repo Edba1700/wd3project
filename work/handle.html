@@ -4,25 +4,35 @@
     <meta charset="utf-8" />
     <title>Handle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/styles.css" type="text/css">
+    <link rel="stylesheet" href="css/styles.min.css" type="text/css">
 </head>
 <Body>
-    <div id=envelop>
+    <div id=envelophandle class="envelop">
     <header id="mainheader">
+            <div id="logo">
+                <img src="bilder/logotyp.svg" alt="Lorem Listum" id="logoimg">
+            </div>
+            <nav id="mainmenu">
+                <ul>
+                    <li><a href="index.html">Startsida</a></li>
+                    <li><a href="handle.html">Hantera</a></li>
+                </ul>
+            </nav>
     </header>
     <div id="handlelist" class="content"></div>
     <div id="dform" class="content">    
-        <form action="index.html" id="newtext" onsubmit=>
+        <form action="#" id="newtext" method="#">
         <input type="text" name="liname" id="liname"><br/><br/>
         <textarea name="litext" id="litext" cols="30" rows="10"></textarea><br/>
-        <input type="submit" value="submit" id="newlorem">
+        <input type="button" value="submit" id="newlorem" name="newlorem">
         </form>
         <p id="warning"></p>
     </div>
 
     <footer id="mainfooter">
     </footer>
-    <script src="js/main.js"></script>
+ 
     </div>
 </body>
-</html>
+</html> 
+<script type="text/javascript" src="js/main.min.js"></script>
