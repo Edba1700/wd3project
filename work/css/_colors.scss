@@ -44,7 +44,9 @@ a:visited{
 .content{
     background-color: $textbg;
 }
-
+#displaylist{//Bild för att visa listan
+    background-color: initial;
+}
 #lilist{//Lista över Lorem Ipsum
     background-color: $sectcol;
 }

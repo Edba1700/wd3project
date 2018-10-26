@@ -4,25 +4,9 @@ var URL = "http://ebaer.se/wd3/projekt/REST.php/Lorem_Ipsum"
 //Elements
 var handlelistEl = document.getElementById("handlelist");//Div for list of available Lorem Ipsum
 var dformEl = document.getElementById("dform");//Div for the form.
-//var newloremEl = document.getElementById("newlorem");//submit button for a new lorem
 var warningEl = document.getElementById("warning");//Warning text
 
-//XMLHttp requests
-var LoremInfo = new XMLHttpRequest();
-
-//Infohämtning
-LoremInfo.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-        var information = JSON.parse(this.responseText);
-        /*functionname(information.information.information)*/
-        IpsumList(information);
-        console.log(information);
-    }
-};
-
-LoremInfo.open("GET", URL, true);
-LoremInfo.send();
-//Makes list of Lorem Ipsum
+//Makes list of Lorem Ipsum with onclick commands to change or delete chosen Lorem Ipsum
 function IpsumList(lorem){
     for (var i = 0; i < lorem.length; i++) {
         handlelistEl.innerHTML += "<div class='dli'><p class='hli'>"+lorem[i].liname+"</p><a class='ahli'onclick ='changeLorem(\""+lorem[i].ID+"\",\""+lorem[i].liname+"\",\""+lorem[i].litext+"\")'>  Ändra</a><a class='ahli' onclick = 'deleteIpsum(\""+lorem[i].ID+"\")'>  Ta bort</a><br/></div>";
@@ -33,13 +17,10 @@ function IpsumList(lorem){
 function newIpsum(){
     var liname = document.getElementById("liname").value;
     var litext = document.getElementById("litext").value;
-    if( !(liname != '' && litext != '') ){ 
-        location.reload();
-    }
-    //Removelinebreaks
-    while(litext.indexOf('\n')>-1){
-        litext=litext.replace('\n','*n');
-    }
+ 
+    //Removes linebreaks
+    litext = breaklines(litext);
+    //Sends the data
     var json = {"liname":liname, "litext":litext};
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("POST", URL, true);
@@ -50,7 +31,16 @@ function newIpsum(){
             location.reload();
     }
 }
-//Function for resturing linebreaks
+
+//Function for removing linebreaks
+function breaklines(broken){
+    var brokentext = broken;
+    while(brokentext.indexOf('\n')>-1){
+        brokentext=brokentext.replace('\n','*n');
+    }
+    return brokentext;
+}
+//Function for restoring linebreaks
 function breakrestore(unbroken){
     var breakee = unbroken;
     while(breakee.indexOf('*n')>-1){
@@ -61,8 +51,9 @@ function breakrestore(unbroken){
 //Function for making changes to a Lorem Ipsum
 function changeLorem(liid, liname,litext){
     var LoremIpsum = breakrestore(litext);
+    //Makes a form with the fields filled in with the chosen Lorem Ipsum
     dformEl.innerHTML = '<form action="#" method="#" id="newtext"><input type="text" name="liname" id="liname" value = "'+liname+'"><br/><br/><textarea name="litext" id="litext" cols="30" rows="10">'+LoremIpsum+'</textarea><br/><input type="hidden" name="liid" id="liid" value="'+liid+'"><input type="button" value="submit" id="submitbutton"></form>'
-    document.getElementById("submitbutton").addEventListener("click",changeIpsumcheck);
+    document.getElementById("submitbutton").addEventListener("click",changeIpsumcheck);//Click listener for the submitbutton
 }
 
 
@@ -71,11 +62,11 @@ function changeIpsum(){
     var liid = document.getElementById("liid").value;
     var liname = document.getElementById("liname").value;
     var litext = document.getElementById("litext").value;
-    //if any empty value: reload page
-    if( !(liid != '' && liname != '' && litext != '') ){ 
-        location.reload();
-    }
 
+    //Removes linebreaks
+    litext = breaklines(litext);
+
+    //Sends data
     var json = {"ID":liid, "liname":liname, "litext":litext};
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("PUT", URL+"/"+liid, true);
@@ -87,7 +78,7 @@ function changeIpsum(){
     }
 } 
 
-//function for deleting Lorem Ipsum
+//function for deleting chosen Lorem Ipsum
 function deleteIpsum(id){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("DELETE", URL+"/"+id, true);
@@ -111,6 +102,7 @@ function valuecheck(){
     }
 }
 
+//Functions to ensure imput fields are not empty on submit
 function newIpsumcheck(){
     if (valuecheck()){
         newIpsum();
@@ -128,7 +120,7 @@ function changeIpsumcheck(){
         warningEl.innerHTML = "Fälten får EJ vara tomma!";
     }
 }
-//submit listeners
+//submit listener for new lorem ipsum
 document.getElementById("newlorem").addEventListener("click",newIpsumcheck);
 
 
